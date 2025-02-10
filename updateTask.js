@@ -1,14 +1,14 @@
 import axios from 'axios';
 import * as Notifications from 'expo-notifications';
 import { url } from './urls';
-import { Alert } from 'react-native'; // Import Alert
+import { Alert } from 'react-native'; 
 
 // Function to cancel a notification
 async function cancelNotification(notificationId) {
   try {
     await Notifications.cancelScheduledNotificationAsync(notificationId);
   } catch (error) {
-    Alert.alert('Error', `Error canceling notification: ${error.message}`); // Use Alert for error
+    Alert.alert('Error', `Error canceling notification: ${error.message}`);
   }
 }
 
@@ -42,21 +42,17 @@ const updateTask = async (user, taskData, event) => {
     const token = await user.getIdToken(true);
     const id = user.uid;
 
-    // Cancel existing notification if it exists
     if (event.notificationId) {
       await cancelNotification(event.notificationId);
     }
 
-    // Update the task
     const response = await axios.patch(
       `${url}/users/${id}/tasks/${event.id}.json?auth=${token}`,
       taskData
     );
 
-    // Schedule a new notification
     const newNotificationId = await scheduleNotification(taskData);
 
-    // Update the task with the new notification ID
     if (newNotificationId) {
       await axios.patch(
         `${url}/users/${id}/tasks/${event.id}.json?auth=${token}`,
@@ -64,7 +60,7 @@ const updateTask = async (user, taskData, event) => {
       );
     }
   } catch (error) {
-    Alert.alert('Error', `Error updating task`); // Use Alert for error
+    Alert.alert('Error', `Error updating task`); 
   }
 };
 
