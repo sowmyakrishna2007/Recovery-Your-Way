@@ -19,11 +19,11 @@ export default function DrawerNavigator() {
         drawerContent={(props) => <CustomDrawerContent {...props} />}
             screenOptions={{
             drawerLabelStyle: {
-              fontFamily: 'Poppins_400Regular', // Custom font for Drawer labels
+              fontFamily: 'Poppins_400Regular', 
               fontSize: 14
             },
             headerTitleStyle: {
-                fontFamily: 'Poppins_400Regular', // Custom font for header title
+                fontFamily: 'Poppins_400Regular', 
                 fontSize: 15,
               },}}>
             <Drawer.Screen
@@ -39,21 +39,6 @@ export default function DrawerNavigator() {
                     headerTintColor: '#05532b',
                     drawerActiveBackgroundColor: '#e1f4ea',
                     drawerActiveTintColor: 'black'
-                }}/>
-                <Drawer.Screen
-                name="Community Forum"
-                component={Forum}
-                options={{
-                    headerShown: true,
-                    headerTitle: 'Community Forum',
-                    headerStyle: {
-                        backgroundColor: 'white'
-                    },
-                    
-                    headerTintColor: '#05532b',
-                    drawerActiveBackgroundColor: '#e1f4ea',
-                    drawerActiveTintColor: 'black'
-
                 }}/>
 
             <Drawer.Screen
