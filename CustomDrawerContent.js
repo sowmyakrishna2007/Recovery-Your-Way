@@ -29,7 +29,7 @@ function CustomDrawerContent(props) {
 const styles = StyleSheet.create({
     buttonContainer: {
         paddingHorizontal: 20,
-        marginBottom: 20, // Added margin to separate from footer
+        marginBottom: 20,
     },
     button: {
         marginTop: 15,
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingBottom: 50,
        
-        alignItems: 'left', // Center the "Delete Account" button
+        alignItems: 'left', 
     },
     deleteText: {
         color: "#921007",
