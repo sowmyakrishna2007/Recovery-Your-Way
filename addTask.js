@@ -15,10 +15,10 @@ const checkNotificationPermissions = async () => {
 // Function to schedule a notification
 const scheduleNotificationHandler = async (taskData) => {
   const targetDate = new Date(taskData.d);
-  targetDate.setHours(7, 0, 0, 0); // Ensure the time is set to 7:00:00 AM
+  targetDate.setHours(7, 0, 0, 0); 
   const timeUntilNotification = targetDate.getTime() - new Date().getTime();
 
-  if (timeUntilNotification > 0) { // Ensure notification is scheduled only if the target date is in the future
+  if (timeUntilNotification > 0) { 
     try {
       const notificationId = await Notifications.scheduleNotificationAsync({
         content: {
@@ -26,7 +26,7 @@ const scheduleNotificationHandler = async (taskData) => {
           body: taskData.dsc,
         },
         trigger: {
-          seconds: timeUntilNotification/1000, // Convert milliseconds to seconds
+          seconds: timeUntilNotification/1000, 
         },
       });
       return notificationId;
@@ -34,7 +34,7 @@ const scheduleNotificationHandler = async (taskData) => {
       return null;
     }
   } else {
-    return null; // Do not schedule a notification if the target date is in the past
+    return null; 
   }
 };
 
@@ -44,21 +44,18 @@ const storeTask = async (user, taskData) => {
     const token = await user.getIdToken(true);
     const id = user.uid;
 
-    // Store task in the database
+
     const response = await axios.post(
       `${url}/users/${id}/tasks.json?auth=${token}`,
       taskData
     );
 
-    // Check if notifications are permitted
     const permissionsGranted = await checkNotificationPermissions();
     if (permissionsGranted) {
-      // Schedule notification and get its ID, only if the task's date is in the future
       const notificationId = await scheduleNotificationHandler(taskData);
 
-      // Update the task with the notification ID
       if (notificationId) {
-        const taskId = response.data.name; // Get the ID of the newly created task
+        const taskId = response.data.name; 
         await axios.patch(
           `${url}/users/${id}/tasks/${taskId}.json?auth=${token}`,
           { notificationId }
@@ -66,7 +63,7 @@ const storeTask = async (user, taskData) => {
       }
     } 
   } catch (error) {
-    Alert.alert('Error', `Error storing task`); // Use Alert for error
+    Alert.alert('Error', `Error storing task`); 
   }
 };
 
